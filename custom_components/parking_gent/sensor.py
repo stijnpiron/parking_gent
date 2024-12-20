@@ -117,7 +117,12 @@ class ParkingSensor(SensorEntity):
         self.coordinator = coordinator
         self.parking_id = parking_id
         self.parking_data = parking_data
+        self._icon = "mdi:parking"
 
+    @property
+    def icon(self):
+        return self._icon
+    
     @property
     def name(self):
         """Return the name of the sensor."""
@@ -127,6 +132,23 @@ class ParkingSensor(SensorEntity):
     def state(self):
         """Return the state of the sensor (available capacity)."""
         return self.parking_data["availableCapacity"]
+    
+    @property
+    def unit_of_measurement(self):
+        return "Spaces"
+    
+    @property
+    def device_state_attributes(self):
+        """Return additional attributes."""
+        return {
+            "isOpenNow": bool(self.parking_data["isOpenNow"]),
+            "lastUpdate": self.parking_data["lastUpdate"],
+            "location": self.parking_data["location"],
+            "occupation": self.parking_data["occupation"],
+            "openingTimes": self.parking_data["openingTimes"],
+            "totalCapacity": self.parking_data["totalCapacity"],
+            "url": self.parking_data["url"],
+        }
 
     @property
     def extra_state_attributes(self):
