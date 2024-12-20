@@ -46,9 +46,12 @@ Provides realtime overview of available parking spots in the Ghent parking lots 
 ### Installations via HACS
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
 
-- In HACS, look for "ghent parking" and install and restart
-  - If integration was not found, please add custom repository `stijnpiron/parking_gent` as integration
+The integration is not yet added in HACS, so a custom repository must be added to get it to work: `stijnpiron/parking_gent`
+
+[//]: # (- In HACS, look for "parking gent" and install and restart)
+[//]: #  ( - If the integration was not found, please add custom repository `stijnpiron/parking_gent` as integration)
 - add the config to the `configuration.yaml` file:
+
 ```
 sensor:
   - platform: parking_gent
