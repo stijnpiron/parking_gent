@@ -26,21 +26,24 @@ logging.basicConfig(
 logger = logging.getLogger("ParkingAPIHealthCheck")
 
 # Parking API URLs
-PARKING_API_URLS = [
+PARKING_PROPS = [
     {
         "name": "Parking Garages",
         "url": API_PARKING,
         "expected_fields": list(FIELDS_GARAGE.values()),
+        "expected_parkings":["Vrijdagmarkt","Sint-Michiels","Tolhuis","Ledeberg","The Loop","Reep","Ramen","B-Park Gent Sint-Pieters","Dok noord","Savaanstraat","Sint-Pietersplein","Getouw","B-Park Dampoort"]
     },
     {
         "name": "P+R Parking",
         "url": API_PR,
         "expected_fields": list(FIELDS_PR.values()),
+        "expected_parkings":["P+R Wondelgem","P+R The Loop","P+R Oostakker","P+R Gentbrugge Arsenaal","P+R Bourgoyen",]
     },
     {
         "name": "Mobi Parkings",
         "url": API_MOBI,
         "expected_fields": list(FIELDS_MOBI.values()),
+        "expected_parkings":["Interparking Center","Interparking Kouter","Interparking Zuid",]
     },
 ]
 
@@ -50,6 +53,7 @@ def check_api(api_config):
     url = api_config["url"]
     name = api_config["name"]
     expected_fields = api_config["expected_fields"]
+    expected_parkings = api_config["expected_parkings"]
 
     try:
         logger.info(f'Starting check for API: "{name}"')
@@ -57,13 +61,37 @@ def check_api(api_config):
         response = requests.get(url)
         response.raise_for_status()
 
-        data = response.json().get("results", [])
+        # Parse response JSON
+        response_json = response.json()
+        data = response_json.get("results", [])
+        total_count = response_json.get("total_count")
+
+        # Validate total_count matches length of data
+        if total_count is not None and total_count != len(data):
+            logger.error(
+                f'API "{name}": FAILED - "total_count" ({total_count}) does not match length of data ({len(data)})'
+            )
+            return False
+        
         if not data:
             logger.warning(f'No data found for API: "{name}"')
             logger.error(f'API "{name}": FAILED - Empty response data')
             return False
 
         all_fields_found = True
+        all_parkings_found = True
+        
+        # Verify expected parkings are in the response
+        response_parking_names = {record.get("name") or record.get("id_parking") for record in data}
+        missing_parkings = [parking for parking in expected_parkings if parking not in response_parking_names]
+
+        if missing_parkings:
+            all_parkings_found = False
+            logger.error(
+                f'API "{name}": FAILED - Missing expected parkings: {missing_parkings}'
+            )
+        else:
+            logger.info(f'API "{name}": PASSED - All expected parkings are present')
 
         # Validate fields in each record
         for i, record in enumerate(data):
@@ -76,8 +104,9 @@ def check_api(api_config):
                 )
             else:
                 logger.info(f'Record {i} in API "{name}": PASSED - All fields found for parking "{parking_name}"')
-
-        if all_fields_found:
+                
+        # Final decision based on the checks
+        if all_fields_found and all_parkings_found:
             logger.info(f'API "{name}": PASSED - All records have expected fields')
             return True
         else:
@@ -94,7 +123,7 @@ def check_api(api_config):
 def main():
     all_passed = True
 
-    for api in PARKING_API_URLS:
+    for api in PARKING_PROPS:
         result = check_api(api)
         if result:
             logger.info(f'API "{api['name']}": SUCCESS')
