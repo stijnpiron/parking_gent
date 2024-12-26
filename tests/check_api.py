@@ -68,13 +68,13 @@ def check_api(api_config):
         # Validate fields in each record
         for i, record in enumerate(data):
             missing_fields = [field for field in expected_fields if field not in record]
+            parking_name = record.get("name") or record.get("id_parking")
             if missing_fields:
                 all_fields_found = False
                 logger.error(
-                    f'Record {i} in API "{name}": Missing fields {missing_fields}'
+                    f'Record {i} in API "{name}": Missing fields {missing_fields} for parking "{parking_name}"'
                 )
             else:
-                parking_name = record.get("name") or record.get("id_parking")
                 logger.info(f'Record {i} in API "{name}": PASSED - All fields found for parking "{parking_name}"')
 
         if all_fields_found:
