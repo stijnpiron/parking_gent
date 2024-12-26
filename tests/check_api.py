@@ -74,7 +74,8 @@ def check_api(api_config):
                     f'Record {i} in API "{name}": Missing fields {missing_fields}'
                 )
             else:
-                logger.info(f'Record {i} in API "{name}": PASSED - All fields found')
+                parking_name = record.get("name") or record.get("id_parking")
+                logger.info(f'Record {i} in API "{name}": PASSED - All fields found for parking "{parking_name}"')
 
         if all_fields_found:
             logger.info(f'API "{name}": PASSED - All records have expected fields')
@@ -96,9 +97,9 @@ def main():
     for api in PARKING_API_URLS:
         result = check_api(api)
         if result:
-            logger.info(f"API \"{api['name']}\": SUCCESS")
+            logger.info(f'API "{api['name']}": SUCCESS')
         else:
-            logger.error(f"API \"{api['name']}\": FAILURE")
+            logger.error(f'API "{api['name']}": FAILURE')
             all_passed = False
 
     if all_passed:
