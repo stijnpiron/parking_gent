@@ -31,19 +31,43 @@ PARKING_PROPS = [
         "name": "Parking Garages",
         "url": API_PARKING,
         "expected_fields": list(FIELDS_GARAGE.values()),
-        "expected_parkings":["Vrijdagmarkt","Sint-Michiels","Tolhuis","Ledeberg","The Loop","Reep","Ramen","B-Park Gent Sint-Pieters","Dok noord","Savaanstraat","Sint-Pietersplein","Getouw","B-Park Dampoort"]
+        "expected_parkings": [
+            "Vrijdagmarkt",
+            "Sint-Michiels",
+            "Tolhuis",
+            "Ledeberg",
+            "The Loop",
+            "Reep",
+            "Ramen",
+            "B-Park Gent Sint-Pieters",
+            "Dok noord",
+            "Savaanstraat",
+            "Sint-Pietersplein",
+            "Getouw",
+            "B-Park Dampoort",
+        ],
     },
     {
         "name": "P+R Parking",
         "url": API_PR,
         "expected_fields": list(FIELDS_PR.values()),
-        "expected_parkings":["P+R Wondelgem","P+R The Loop","P+R Oostakker","P+R Gentbrugge Arsenaal","P+R Bourgoyen",]
+        "expected_parkings": [
+            "P+R Wondelgem",
+            "P+R The Loop",
+            "P+R Oostakker",
+            "P+R Gentbrugge Arsenaal",
+            "P+R Bourgoyen",
+        ],
     },
     {
         "name": "Mobi Parkings",
         "url": API_MOBI,
         "expected_fields": list(FIELDS_MOBI.values()),
-        "expected_parkings":["Interparking Center","Interparking Kouter","Interparking Zuid",]
+        "expected_parkings": [
+            "Interparking Center",
+            "Interparking Kouter",
+            "Interparking Zuid",
+        ],
     },
 ]
 
@@ -67,23 +91,29 @@ def check_api(api_config):
         total_count = response_json.get("total_count")
 
         # Validate total_count matches length of data
-        if total_count is not None and total_count != len(data):
+        if total_count is not None and total_count != len(expected_parkings):
             logger.error(
-                f'API "{name}": FAILED - "total_count" ({total_count}) does not match length of data ({len(data)})'
+                f'API "{name}": FAILED - "total_count" ({total_count}) does not match length of data ({len(expected_parkings)})'
             )
-            return False
-        
+            all_parkings_found = False
+
         if not data:
             logger.warning(f'No data found for API: "{name}"')
             logger.error(f'API "{name}": FAILED - Empty response data')
-            return False
+            all_parkings_found = False
 
         all_fields_found = True
         all_parkings_found = True
-        
+
         # Verify expected parkings are in the response
-        response_parking_names = {record.get("name") or record.get("id_parking") for record in data}
-        missing_parkings = [parking for parking in expected_parkings if parking not in response_parking_names]
+        response_parking_names = {
+            record.get("name") or record.get("id_parking") for record in data
+        }
+        missing_parkings = [
+            parking
+            for parking in expected_parkings
+            if parking not in response_parking_names
+        ]
 
         if missing_parkings:
             all_parkings_found = False
@@ -103,8 +133,10 @@ def check_api(api_config):
                     f'Record {i} in API "{name}": Missing fields {missing_fields} for parking "{parking_name}"'
                 )
             else:
-                logger.info(f'Record {i} in API "{name}": PASSED - All fields found for parking "{parking_name}"')
-                
+                logger.info(
+                    f'Record {i} in API "{name}": PASSED - All fields found for parking "{parking_name}"'
+                )
+
         # Final decision based on the checks
         if all_fields_found and all_parkings_found:
             logger.info(f'API "{name}": PASSED - All records have expected fields')
