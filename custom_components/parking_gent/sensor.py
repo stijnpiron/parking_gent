@@ -141,3 +141,8 @@ class ParkingSensor(SensorEntity):
     def unique_id(self):
         """Return a unique ID for the sensor."""
         return f"parking_{self.parking_id.lower().replace(' ', '_')}"
+
+    async def async_update(self):
+        """Update the sensor."""
+        await self.coordinator.async_request_refresh()
+        self.parking_data = self.coordinator.data.get(self.parking_id, {})
