@@ -13,9 +13,9 @@ sys.path.insert(
 from constants import (
     API_PARKING,
     API_PR,
-    API_MOBI,
+    # API_MOBI,
     FIELDS_GARAGE,
-    FIELDS_MOBI,
+    # FIELDS_MOBI,
     FIELDS_PR,
 )
 
@@ -59,16 +59,16 @@ PARKING_PROPS = [
             "P+R Bourgoyen",
         ],
     },
-    {
-        "name": "Mobi Parkings",
-        "url": API_MOBI,
-        "expected_fields": list(FIELDS_MOBI.values()),
-        "expected_parkings": [
-            "Interparking Center",
-            "Interparking Kouter",
-            "Interparking Zuid",
-        ],
-    },
+    # {
+    #     "name": "Mobi Parkings",
+    #     "url": API_MOBI,
+    #     "expected_fields": list(FIELDS_MOBI.values()),
+    #     "expected_parkings": [
+    #         "Interparking Center",
+    #         "Interparking Kouter",
+    #         "Interparking Zuid",
+    #     ],
+    # },
 ]
 
 

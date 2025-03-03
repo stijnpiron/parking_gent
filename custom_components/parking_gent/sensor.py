@@ -6,17 +6,17 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 from .constants import (
     SCAN_INTERVAL,
     FIELDS_GARAGE,
-    FIELDS_MOBI,
+    # FIELDS_MOBI,
     FIELDS_PR,
     API_PARKING,
     API_PR,
-    API_MOBI,
+    # API_MOBI,
 )
 
 _LOGGER = logging.getLogger(__name__)
 
 """ requests only fetch a subset of relevant data, more documentation via the url. """
-""" the mobi endpoint is only used for 3 extra parking locations that are not available in the parking garage or p+r endpoints"""
+""" the mobi endpoint is only used for 3 extra parking locations from interparking that are not available in the parking garage or p+r endpoints"""
 PARKING_API_URLS = [
     {
         "documentationUrl": "https://data.stad.gent/explore/dataset/bezetting-parkeergarages-real-time/information/?sort=-occupation",
@@ -28,11 +28,11 @@ PARKING_API_URLS = [
         "url": API_PR,
         "mapping": FIELDS_PR,
     },
-    {
-        "documentationUrl": "https://data.stad.gent/explore/dataset/mobi-parkings/information/",
-        "url": API_MOBI,
-        "mapping": FIELDS_MOBI,
-    },
+    # {
+    #     "documentationUrl": "https://data.stad.gent/explore/dataset/mobi-parkings/information/",
+    #     "url": API_MOBI,
+    #     "mapping": FIELDS_MOBI,
+    # },
 ]
 
 
