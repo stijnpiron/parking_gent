@@ -16,9 +16,6 @@ Provides realtime overview of available parking spots in the Ghent parking lots 
 - B-Park Gent Sint-Pieters
 - Dok noord
 - Getouw
-- Interparking Center
-- Interparking Kouter
-- Interparking Zuid
 - Ledeberg
 - Ramen
 - Reep
@@ -28,7 +25,7 @@ Provides realtime overview of available parking spots in the Ghent parking lots 
 - The Loop
 - Tolhuis
 - Vrijdagmarkt
-- 
+
 ### P+R parking lots
 - P+R Bourgoyen
 - P+R Gentbrugge Arsenaal
