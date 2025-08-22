@@ -5,10 +5,9 @@
     "config_flow": true,
     "dependencies": [],
     "documentation": "https://github.com/stijnpiron/parking_gent",
-    "homeassistant": "2023.1.0",
-    "integration_type": "service",
+    "integration_type": "hub",
     "iot_class": "cloud_polling",
     "issue_tracker": "https://github.com/stijnpiron/parking_gent/issues",
-    "requirements": ["requests"],
+    "requirements": ["requests>=2.25.1"],
     "version": "1.5.0"
 }
