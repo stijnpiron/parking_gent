@@ -1,0 +1,14 @@
+{
+    "domain": "parking_gent",
+    "name": "Parking Gent",
+    "codeowners": ["@stijnpiron"],
+    "config_flow": true,
+    "dependencies": [],
+    "documentation": "https://github.com/stijnpiron/parking_gent",
+    "homeassistant": "2023.1.0",
+    "integration_type": "service",
+    "iot_class": "cloud_polling",
+    "issue_tracker": "https://github.com/stijnpiron/parking_gent/issues",
+    "requirements": ["requests"],
+    "version": "1.5.0"
+}
