@@ -22,6 +22,7 @@ _LOGGER = logging.getLogger(__name__)
 
 """ requests only fetch a subset of relevant data, more documentation via the url. """
 """ the mobi endpoint is only used for 3 extra parking locations from interparking that are not available in the parking garage or p+r endpoints"""
+""" P+R API temporarily disabled due to 404 errors - will be re-enabled when City of Gent fixes the endpoint """
 PARKING_API_URLS = [
     {
         "documentationUrl": "https://data.stad.gent/explore/dataset/bezetting-parkeergarages-real-time/information/?sort=-occupation",
@@ -29,12 +30,14 @@ PARKING_API_URLS = [
         "mapping": FIELDS_GARAGE,
         "name": "Parking Garages",
     },
-    {
-        "documentationUrl": "https://data.stad.gent/explore/dataset/real-time-bezetting-pr-gent/information/?sort=name",
-        "url": API_PR,
-        "mapping": FIELDS_PR,
-        "name": "P+R Parking",
-    },
+    # Temporarily disabled due to 404 errors from City of Gent API
+    # Will be re-enabled when endpoint is fixed
+    # {
+    #     "documentationUrl": "https://data.stad.gent/explore/dataset/real-time-bezetting-pr-gent/information/?sort=name",
+    #     "url": API_PR,
+    #     "mapping": FIELDS_PR,
+    #     "name": "P+R Parking",
+    # },
     # {
     #     "documentationUrl": "https://data.stad.gent/explore/dataset/mobi-parkings/information/",
     #     "url": API_MOBI,

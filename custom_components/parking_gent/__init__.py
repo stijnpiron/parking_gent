@@ -61,9 +61,11 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 async def _test_api_connectivity(hass: HomeAssistant, session) -> None:
     """Test connectivity to all parking APIs."""
+    # Only test currently enabled APIs - P+R API temporarily disabled due to 404 errors
     apis_to_test = [
         ("Parking Garages", API_PARKING),
-        ("P+R Parking", API_PR),
+        # P+R API temporarily disabled due to 404 errors from City of Gent
+        # ("P+R Parking", API_PR),
     ]
     
     errors = []

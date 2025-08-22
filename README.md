@@ -6,30 +6,28 @@
 [![HACS Action](https://github.com/stijnpiron/parking_gent/actions/workflows/hacs_validator.yml/badge.svg)](https://github.com/stijnpiron/parking_gent/actions/workflows/hacs_validator.yml)
 
 ## Home Assistant Parking Gent Integration
-A robust Home Assistant integration providing real-time parking availability data for Ghent's parking facilities. Monitor only the parking locations you care about with intelligent error handling and clean logging.
 
-## ✨ Key Features
+Provides real-time overview of available parking spots in Ghent parking garages and P+R locations with robust error handling and user-friendly setup.
 
-### 🎯 **Smart Parking Selection**
-- **Choose Your Parkings**: Select only the parking locations you want to monitor during setup
-- **Easy Management**: Change your selection anytime through the configuration UI
-- **Automatic Discovery**: Integration finds all available parking locations automatically
-- **Efficient Updates**: Only fetches data for your selected parkings
+### ✨ Key Features
 
-### 🛡️ **Robust & Reliable**
-- **Graceful Degradation**: Works even when some parking APIs are temporarily unavailable
-- **Smart Caching**: Uses cached data during API outages to maintain availability
-- **Automatic Recovery**: Resumes normal operation when APIs come back online
-- **Clean Logging**: Errors only show in debug mode to prevent log spam
+- 🎯 **User-Selectable Parkings**: Choose which parking locations to monitor during setup
+- 🔧 **Easy Configuration**: UI-based setup with options to modify selection later
+- 🛡️ **Robust Error Handling**: Continues working even when some APIs are unavailable
+- 📊 **Smart Logging**: Clean logs with debug-only detailed information
+- ⚡ **Efficient**: Only fetches data for selected parking locations
+- 🔄 **Auto-Recovery**: Automatically resumes when APIs come back online
 
-### 🔧 **Easy Setup & Management**
-- **UI Configuration**: Set up through Home Assistant's interface (no YAML required)
-- **Live Updates**: Change parking selection without restarting
-- **Status Monitoring**: Clear indication of API health and data freshness
+## Current API Status
 
-## 🏠 Supported Parking Locations
+✅ **Parking Garages API**: Fully operational (13 locations)  
+⏸️ **P+R Parking API**: Temporarily disabled due to City of Gent API issues (404 errors)
 
-### 🚗 Parking Garages (Currently Available)
+*The P+R API has been temporarily disabled to ensure clean integration operation. It will be automatically re-enabled when the City of Gent fixes their API endpoint.*
+
+## Supported Parking Locations
+
+### 🏢 Parking Garages (Currently Available)
 - B-Park Dampoort
 - B-Park Gent Sint-Pieters  
 - Dok noord
@@ -44,143 +42,101 @@ A robust Home Assistant integration providing real-time parking availability dat
 - Tolhuis
 - Vrijdagmarkt
 
-### 🚌 P+R Parking Lots (API Currently Unavailable)
+### 🚗 P+R Parking Lots (Temporarily Disabled)
 - P+R Bourgoyen
 - P+R Gentbrugge Arsenaal
 - P+R Oostakker
 - P+R The Loop
 - P+R Wondelgem
 
-*Note: The P+R parking API is currently returning 404 errors. The integration will automatically include these locations when the API becomes available again.*
+*P+R locations are temporarily disabled due to City of Gent API issues. They will be automatically re-enabled when the API is restored.*
 
-## 📊 Provided Data
-Each parking sensor provides:
-- **Parking name** - Display name of the location
-- **Available spaces** - Current number of free parking spots
-- **Total capacity** - Maximum number of parking spaces
-- **Occupation** - Current usage percentage
-- **Opening status** - Whether the location is currently open
-- **Opening hours** - Schedule information
-- **Location coordinates** - GPS coordinates for navigation
-- **Information URL** - Link to more details about the location  
-- **Last update** - Timestamp of the most recent data update
+## Provided Data
+- Parking name
+- Total parking spaces
+- Available parking spaces  
+- Occupied places
+- Opening time schedule
+- Whether the location is currently open or not
+- Location coordinates
+- URL for more information about the location
+- Timestamp when the last data update was done for the location
 
-## 🚀 Installation
+## Installation
 
-### Method 1: HACS (Recommended)
+### Via HACS (Recommended)
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
 
-1. Open HACS in Home Assistant
-2. Go to Integrations
-3. Click the three dots menu → Custom repositories
-4. Add repository: `stijnpiron/parking_gent`
-5. Category: Integration
-6. Install "Parking Gent"
-7. Restart Home Assistant
+1. Look for `Parking Gent` in HACS integrations
+2. If not found, add as custom repository: `stijnpiron/parking_gent`
+3. Install the integration
+4. Restart Home Assistant
+5. Add integration via UI: **Configuration** → **Integrations** → **Add Integration** → **Parking Gent**
 
-### Method 2: Manual Installation
-1. Download the latest release
-2. Copy the `custom_components/parking_gent` folder to your Home Assistant `custom_components` directory
-3. Restart Home Assistant
+### Manual Installation
+1. Copy the `custom_components/parking_gent` directory to your Home Assistant `custom_components` folder
+2. Restart Home Assistant  
+3. Add integration via UI: **Configuration** → **Integrations** → **Add Integration** → **Parking Gent**
 
-## ⚙️ Configuration
+## Configuration
 
 ### UI Setup (Recommended)
-1. Go to **Configuration** → **Integrations**
-2. Click **Add Integration**
-3. Search for "Parking Gent"
-4. Enter an integration name
-5. Select which parking locations you want to monitor
-6. Click **Submit**
+1. Go to **Configuration** → **Integrations** → **Add Integration**
+2. Search for **Parking Gent** and select it
+3. Enter an integration name
+4. Select which parking locations you want to monitor
+5. Click **Submit** - sensors will be created for your selected parkings
 
 ### Changing Parking Selection
 1. Go to **Configuration** → **Integrations**
-2. Find "Parking Gent" and click **Configure**
+2. Find **Parking Gent** and click **Configure**  
 3. Modify your parking selection
 4. Click **Submit** - changes apply immediately
 
-### Legacy YAML Configuration (Deprecated)
-For backward compatibility, YAML configuration is still supported but not recommended:
+### Legacy Configuration (Deprecated)
+For backward compatibility, the old `configuration.yaml` method still works:
 
 ```yaml
 sensor:
   - platform: parking_gent
 ```
 
-*Note: YAML configuration will create sensors for all available parkings and doesn't support the new selection features.*
+*Note: This method monitors all available parkings and doesn't provide selection options.*
 
-## 🔧 Advanced Configuration
+## Troubleshooting
 
 ### Debug Logging
-To see detailed API information and troubleshooting data:
+If you experience issues, enable debug logging:
 
 1. Go to **Configuration** → **Logs**
-2. Click **Set Level**
-3. Enter: `custom_components.parking_gent`
-4. Select **Debug**
-5. Click **Set Level**
+2. Set level for `custom_components.parking_gent` to **Debug**
+3. Check logs for detailed API and processing information
 
-This will show detailed information about API requests, data processing, and any connection issues.
+### Common Issues
+- **No sensors created**: Ensure at least one parking location is selected during setup
+- **Sensors show unavailable**: Check if the parking location is currently open
+- **Integration won't load**: Check debug logs for API connectivity issues
 
-### API Status Monitoring
-The integration automatically monitors API health:
-- **Green**: All selected APIs working normally
-- **Yellow**: Some APIs failed but integration continues with available data  
-- **Red**: All APIs failed, using cached data if available
+## API Status Check
+The integration includes API health monitoring. Check the logs for current API status or run the test script in the `tests/` directory.
 
-## 📱 Usage Examples
+## Examples
 - [Plotting the sensors on a map](documentation/custom_map-card.md)
 - [Navigating via a script to the selected parking](documentation/navigate_to_parking.md)
 
-## 🛠️ Troubleshooting
+## Version History
 
-### Common Issues
+### v1.5.0 - Enhanced User Experience
+- Added user-selectable parking locations
+- Implemented UI-based configuration with options flow
+- Enhanced error handling and logging
+- Improved API robustness and caching
+- Added graceful degradation for partial API failures
 
-**Integration not loading:**
-- Check if APIs are accessible by enabling debug logging
-- Verify internet connectivity
-- Try restarting Home Assistant
-
-**Some parking sensors missing:**
-- Check if you've selected those parkings in configuration
-- Some APIs may be temporarily unavailable (this is normal)
-
-**Sensors showing "unavailable":**
-- This may indicate parking location is closed or API issues
-- Check debug logs for detailed information
-- Sensors will automatically recover when data becomes available
-
-### Getting Help
-1. Enable debug logging (see Advanced Configuration)
-2. Check the logs for specific error messages
-3. Open an issue on GitHub with:
-   - Home Assistant version
-   - Integration version  
-   - Debug log excerpts
-   - Description of the problem
-
-## 🔄 Version History
-
-### v1.5.0 (Latest)
-- ✅ **NEW**: UI-based configuration with parking selection
-- ✅ **NEW**: Options flow for changing parking selection  
-- ✅ **IMPROVED**: Robust error handling with graceful degradation
-- ✅ **IMPROVED**: Clean logging (debug mode only for details)
-- ✅ **IMPROVED**: Smart caching and automatic recovery
-- ✅ **FIXED**: ConfigEntryNotReady errors during setup
+### v1.4.0 - Robustness Improvements  
+- Fixed ConfigEntryNotReady errors
+- Added proper config entry setup
+- Enhanced error handling for API failures
 
 ### Previous Versions
-- v1.4.0: Config flow support and API validation
-- v1.3.1: Basic API integration
-- Earlier: Legacy YAML-only configuration
-
-## 🤝 Contributing
-Contributions are welcome! Please feel free to submit pull requests or open issues for bugs and feature requests.
-
-## 📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🙏 Acknowledgments
-- City of Ghent for providing the open data APIs
-- Home Assistant community for the excellent platform
-- All contributors and users providing feedback
+- See [release history](https://github.com/stijnpiron/parking_gent/releases) for details

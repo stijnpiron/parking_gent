@@ -28,9 +28,11 @@ STEP_USER_DATA_SCHEMA = vol.Schema(
 
 async def get_available_parkings(hass: HomeAssistant) -> dict[str, list[str]]:
     """Get all available parking locations from APIs."""
+    # Temporarily using only working APIs - P+R API disabled due to 404 errors
     apis_to_check = [
         ("Parking Garages", API_PARKING, FIELDS_GARAGE),
-        ("P+R Parking", API_PR, FIELDS_PR),
+        # P+R API temporarily disabled due to 404 errors from City of Gent
+        # ("P+R Parking", API_PR, FIELDS_PR),
     ]
     
     available_parkings = {}
