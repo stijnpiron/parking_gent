@@ -1,3 +1,5 @@
 {
-    "name": "Parking Gent"
+  "name": "Parking Gent",
+  "content_in_root": false,
+  "render_readme": true
 }

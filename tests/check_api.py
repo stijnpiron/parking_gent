@@ -25,7 +25,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger("ParkingAPIHealthCheck")
 
-# Parking API URLs
+# Parking API URLs - P+R API temporarily disabled due to 404 errors
 PARKING_PROPS = [
     {
         "name": "Parking Garages",
@@ -47,18 +47,20 @@ PARKING_PROPS = [
             "B-Park Dampoort",
         ],
     },
-    {
-        "name": "P+R Parking",
-        "url": API_PR,
-        "expected_fields": list(FIELDS_PR.values()),
-        "expected_parkings": [
-            "P+R Wondelgem",
-            "P+R The Loop",
-            "P+R Oostakker",
-            "P+R Gentbrugge Arsenaal",
-            "P+R Bourgoyen",
-        ],
-    },
+    # P+R API temporarily disabled due to 404 errors from City of Gent
+    # Will be re-enabled when the endpoint is fixed
+    # {
+    #     "name": "P+R Parking",
+    #     "url": API_PR,
+    #     "expected_fields": list(FIELDS_PR.values()),
+    #     "expected_parkings": [
+    #         "P+R Wondelgem",
+    #         "P+R The Loop",
+    #         "P+R Oostakker",
+    #         "P+R Gentbrugge Arsenaal",
+    #         "P+R Bourgoyen",
+    #     ],
+    # },
     # {
     #     "name": "Mobi Parkings",
     #     "url": API_MOBI,

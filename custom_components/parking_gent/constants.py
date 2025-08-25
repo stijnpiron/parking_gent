@@ -52,6 +52,10 @@ FIELDS_PR = {
 
 SCAN_INTERVAL = timedelta(minutes=5)
 
+# Timeout settings for API requests
+API_TIMEOUT = 30
+API_RETRY_DELAY = 60  # seconds to wait before retrying failed APIs
+
 
 def compose_select(mapping):
     return ",".join(mapping.values())
