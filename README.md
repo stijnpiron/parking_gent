@@ -4,6 +4,7 @@
 ![GitHub Release](https://img.shields.io/github/v/release/stijnpiron/parking_gent)
 [![Validate with hassfest](https://github.com/stijnpiron/parking_gent/actions/workflows/hassfest.yml/badge.svg)](https://github.com/stijnpiron/parking_gent/actions/workflows/hassfest.yml)
 [![HACS Action](https://github.com/stijnpiron/parking_gent/actions/workflows/hacs_validator.yml/badge.svg)](https://github.com/stijnpiron/parking_gent/actions/workflows/hacs_validator.yml)
+[![Check API Health](https://github.com/stijnpiron/parking_gent/actions/workflows/check_api.yml/badge.svg?branch=main)](https://github.com/stijnpiron/parking_gent/actions/workflows/check_api.yml)
 
 ## Home Assistant Parking Gent Integration
 
