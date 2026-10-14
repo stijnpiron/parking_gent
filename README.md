@@ -5,6 +5,7 @@
 [![Validate with hassfest](https://github.com/stijnpiron/parking_gent/actions/workflows/hassfest.yml/badge.svg)](https://github.com/stijnpiron/parking_gent/actions/workflows/hassfest.yml)
 [![HACS Action](https://github.com/stijnpiron/parking_gent/actions/workflows/hacs_validator.yml/badge.svg)](https://github.com/stijnpiron/parking_gent/actions/workflows/hacs_validator.yml)
 [![Check API Health](https://github.com/stijnpiron/parking_gent/actions/workflows/check_api.yml/badge.svg?branch=main)](https://github.com/stijnpiron/parking_gent/actions/workflows/check_api.yml)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/stijnpiron/parking_gent/blob/main/LICENSE)
 
 ## Home Assistant Parking Gent Integration
 
@@ -141,3 +142,7 @@ The integration includes API health monitoring. Check the logs for current API s
 
 ### Previous Versions
 - See [release history](https://github.com/stijnpiron/parking_gent/releases) for details
+
+## License
+
+This project is licensed under the [Apache License 2.0](LICENSE).
